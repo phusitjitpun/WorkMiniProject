@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <link
+          rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous"
+      />
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+      <script
+          src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/boostrap.min.js"
+          integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+          crossorigin="anonymous"
+      ></script>
+      <style>
+        * {
+ box-sizing: border-box;
+ }
+ 
+ *:focus {
+   outline: none;
+ }
+ body {
+ font-family: Arial;
+ background-color:#3562f7;
+ padding: 50px;
+ }
+ .login {
+ margin: 20px auto;
+ width: 500px;
+ }
+ .login-screen {
+ background-color: #FFF;
+ padding: 20px;
+ border-radius: 5px
+ }
+ 
+ .app-title {
+ text-align: center;
+ color: #777;
+ }
+ 
+ .login-form {
+ text-align: center;
+ }
+ .control-group {
+ margin-bottom: 10px;
+ }
+ 
+ input {
+ text-align: center;
+ background-color: #ECF0F1;
+ border: 2px solid transparent;
+ border-radius: 3px;
+ font-size: 16px;
+ font-weight: 200;
+ padding: 10px 0;
+ width: 250px;
+ transition: border .5s;
+ }
+ 
+ input:focus {
+ border: 2px solid #b1cdcd;
+ box-shadow: none;
+ }
+ 
+ .btn {
+   border: 2px solid transparent;
+   background: #90aff1;
+   color: #ffffff;
+   font-size: 16px;
+   line-height: 25px;
+   padding: 10px 0;
+   text-decoration: none;
+   text-shadow: none;
+   border-radius: 3px;
+   box-shadow: none;
+   transition: 0.25s;
+   display: block;
+   width: 250px;
+   margin: 0 auto;
+ }
+ 
+ .btn:hover {
+   background-color: #90aff1;
+ }
+ 
+ .login-link {
+   font-size: 12px;
+   color: #444;
+   display: block;
+   margin-top: 12px;
+ }
+ 
+ 
+     </style>
+</head>
+<center>
+<body>
+    <div class="login">
+        <div class="login-screen">
+			<div class="app-title">
+				<h1>Upload file</h1>
+			</div>
+      <form  action = "/display" method = "POST" 
+          enctype = "multipart/form-data">
+
+
+          <input type = "file" name = "file" value="type keyword here" />
+          <div class="login-form"></div>
+          <br>
+          <input type = "submit" value="upload"/>
+       </form>  
+      
+      <div class="app-title">
+				<h3>{{content}}</h3>
+			</div>
+        <br>
+      <form action= "/search" method = "POST"
+      enctype = "multipart/form-data">
+      <div class="app-title">
+      <h1> Search keyword </h1>
+      </div>
+      <input   type="text" id="word" name="word" placeholder="type keyword here" />
+      <div class="app-title">
+        <br>
+        <input type = "submit"/>
+      <h2>{{msg}}</h2>
+      </div>
+           
+        </form>
+        </div>
+    </div>
+    <div class="login">
+      <div class="login-screen">
+        <div class="app-title">
+          <h1> Top 5 of word with TF-IDF </h1>
+          <form action= "/top" method = "POST"
+    enctype = "multipart/form-data">
+         <input type = "submit"/>
+    </form>
+    
+    <p3>TF-IDF</p3>
+    {% for row in msgtop %} 
+    <pre>{{row}}</pre>
+    {% endfor %} 
+    <p3>BOW</p3>
+    {% for row2 in msgtop2 %} 
+    <pre>{{row2}}</pre>
+    {% endfor %}
+
+    <br>
+    <h1> Spacy: NER(serch use filename) </h1>
+    <h7 class="my-3">หากไม่พบรายการไฟล์ กรุณาพิมพ์ / ต่อหลัง url</h7>
+    <form action = "/wordtype" method = "POST" 
+        enctype = "multipart/form-data">
+        <select name= "filename" id="filename">
+        {% for row in namefile %} 
+        <option value= "{{row}}">{{row}}</option>
+        {% endfor %} 
+        </select>
+        <input type = "submit"/>
+    </form>
+      <br>
+    </div>
+  </div>
+</div>
+
+      <div class="login">
+        <div class="login-screen">
+          <div class="app-title">
+    <h1> Prediction </h1>
+      <form action = "/prediction" method = "POST" 
+        enctype = "multipart/form-data">
+        <input type="filename" id="news" name="news" />
+        <br><br>
+        <h2>{{msgpre}}</h2>
+        <input type = "submit"/>
+      </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="login">
+      <div class="login-screen">
+        <div class="app-title">
+    <h1> BLOB </h1>
+    <form action = "/blob" method = "POST" 
+      enctype = "multipart/form-data">
+      <input type="text" id="word" name="word" />
+      <br><br>
+      <h2>{{word2}}</h2>
+      <h2>{{msgblob}}</h2>
+      <input type = "submit"/>
+    </form>
+      </div>
+    </div>
+  </div>
+
+
+    
+
+
+    
+
+</body>
+</center>
+</html>
